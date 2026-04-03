@@ -1,24 +1,109 @@
-# Full Stack AI Fianace Platform with Next JS, Supabase, Tailwind, Prisma, Inngest, ArcJet, Shadcn UI Tutorial 🔥🔥
-## https://youtu.be/egS6fnZAdzk
+💰 Welth -- AI-Powered Personal Finance Manager
+A Next.js (App Router) full-stack finance management platform that helps you track income and expenses, manage multiple accounts, set budgets, automate recurring transactions, and receive AI-powered insights.
 
-<img width="1470" alt="Screenshot 2024-12-10 at 9 45 45 AM" src="https://github.com/user-attachments/assets/1bc50b85-b421-4122-8ba4-ae68b2b61432">
+Built with Clerk, Prisma, Inngest, Resend, Google Gemini, and Arcjet.
 
-### Make sure to create a `.env` file with following variables -
+Demo
+Watch Demo
 
-```
-DATABASE_URL=
-DIRECT_URL=
+✨ Features
+🔐 Authentication -- Clerk-powered sign-in / sign-up with protected routes\
+💳 Multi-Account Support -- Create and manage multiple accounts, set default account\
+💸 Transactions -- CRUD operations with atomic balance updates\
+📊 Analytics Dashboard -- Income/expense charts, breakdowns, and budget progress\
+🧾 AI Receipt Scanner -- Extracts amount, date, category from receipts via Gemini\
+📅 Recurring Transactions -- Auto-processed with throttling via Inngest\
+📧 Smart Emails -- Budget alerts & monthly reports with AI-generated insights\
+📉 Budget Tracking -- Alerts when expenses exceed 80% of budget\
+🛡 Bot Protection & Rate Limiting -- Arcjet middleware + Clerk auth guard\
+🧪 Demo Mode -- Seed database with realistic sample data
+🏗 Architecture
+Layer Purpose
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
+Next.js (App Router) Pages, server actions, API routes
 
-GEMINI_API_KEY=
+Clerk Authentication & session management
 
-RESEND_API_KEY=
+Prisma PostgreSQL ORM, migrations, seeding
 
-ARCJET_KEY=
-```
+Inngest Background jobs (budget checks, recurring txns, monthly reports)
+
+Resend + React Email Transactional emails & reports
+
+Google Gemini Receipt OCR & monthly insights
+
+Arcjet Rate limiting, shield, bot detection
+
+Tailwind + ShadCN UI Modern responsive UI components
+
+Recharts Data visualization (charts, graphs)
+🔄 Data Flow
+User signs in (Clerk) → session validated by middleware.
+Dashboard loads → server actions fetch accounts, budgets, and transactions.
+Add transaction → balance updated in Prisma; optional receipt scanner auto-fills form with Gemini OCR.
+Recurring transactions → Inngest scheduler creates events; processor runs jobs per interval.
+Budget alerts → Every 6h, Inngest checks expenses vs. budget → sends email if threshold exceeded.
+Monthly reports → First of each month, Inngest aggregates data, generates insights with Gemini, and emails report.
+📦 Tech Stack
+Framework: Next.js 15 (App Router, Server Actions)
+Language: JavaScript / JSX
+Auth: Clerk
+Database: PostgreSQL + Prisma 6
+Background Jobs: Inngest
+Email: Resend + React Email
+AI: Google Gemini (OCR + insights)
+Security: Arcjet (shield, detectBot, rate-limiting)
+UI: Tailwind CSS 4, ShadCN components, Recharts
+State: React hooks + custom server actions
+🚀 Getting Started
+1. Clone the repo
+git clone https://github.com/rugved0102/welth-AI-Finance-Platform.git
+cd welth 
+2. Install dependencies
+npm install 
+3. Setup environment variables
+Create a `.env.local` file:
+
+DATABASE_URL=postgresql://user:password@localhost:5432/welth
+CLERK_SECRET_KEY=your_clerk_secret CLERK_PUBLISHABLE_KEY=your_clerk_key
+RESEND_API_KEY=your_resend_key GEMINI_API_KEY=your_gemini_key
+ARCJET_KEY=your_arcjet_key 
+4. Setup database
+npx prisma generate 
+npx prisma migrate dev 
+5. Run dev servers
+npm run dev # Start Next.js 
+npx inngest-cli@latest dev # Start Inngest dev server 
+6. (Optional) Seed demo data
+curl -X POST http://localhost:3000/api/seed 
+📧 Email Preview
+You can preview email templates locally:
+
+ npm run email 
+📂 Repo Structure
+welth/
+ ├─ app/                # Next.js routes (App Router)
+ │   ├─ (auth)/         # Clerk auth pages
+ │   ├─ (main)/         # Dashboard & core pages
+ │   └─ api/            # API routes (Inngest, seeding)
+ ├─ actions/            # Server actions (CRUD, logic)
+ ├─ lib/                # Prisma, Inngest, Arcjet setup
+ ├─ prisma/             # Database schema
+ ├─ emails/             # React Email templates
+ ├─ components/         # UI components (ShadCN, charts, forms)
+ ├─ public/             # Static assets (logos, icons)
+ └─ data/               # Predefined categories, landing content
+
+🛡 Security
+Clerk handles secure authentication and session management.\
+Arcjet protects against abuse with:
+`shield` -- baseline abuse protection
+`detectBot` -- blocks non-human traffic (except search engines)\
+Prisma Transactions ensure consistent account balances.
+📈 Roadmap
+ Mobile app version (Expo + React Native)\
+ More AI-driven financial coaching\
+ Export reports (PDF/CSV)\
+ Multi-currency support
+📝 License
+MIT -- feel free to use and modify.
