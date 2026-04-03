@@ -99,7 +99,7 @@ Gemini**, and **Arcjet**.
 ### 1. Clone the repo
 
 ```bash 
-git clone https://github.com/rugved0102/welth-AI-Finance-Platform.git
+git clone https://github.com/Vadrevuharipriya/welth-AI-Finance-Platform.git
 cd welth 
 ```
 
